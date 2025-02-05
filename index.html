@@ -1,0 +1,70 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="GitHub Codespaces ♥️ Django">
+    <meta name="author" content="GitHub Codespaces">
+    <meta name="generator" content="GitHub Codespaces">
+    <meta name="theme-color" content="#000000">
+    <title>{{ title }} | GitHub Codespaces ♥️ Django</title>
+    
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+    <div class="App">
+        <header class="App-header">
+            <img src="{% static 'Octocat.png' %}" class="App-logo" alt="logo" />
+            <p>
+                SR_RIVALS <span class="heart">♥️</span> I'M ON SMOKO!
+            </p>
+            <p class="small">
+                <code>SUPER ROOM OFFICIAL RIVALS TALLY</code>
+            </p>
+        </header>
+        <div class="buttons">
+            <button onclick="showModal('Mike')">Mike</button>
+            <button onclick="showModal('Alex')">Alex</button>
+            <button onclick="showModal('Mario')">Mario</button>
+            <button onclick="showModal('Pat')">Pat</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Mike</th>
+                    <th>Alex</th>
+                    <th>Mario</th>
+                    <th>Pat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="svp-row">
+                    <td>SVP</td>
+                    {% for rival in rivals %}
+                        <td id="svp-{{ rival.name|lower }}">{{ rival.svp_count }}</td>
+                    {% endfor %}
+                </tr>
+                <tr id="mvp-row">
+                    <td>MVP</td>
+                    {% for rival in rivals %}
+                        <td id="mvp-{{ rival.name|lower }}">{{ rival.mvp_count }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p id="modal-text"></p>
+            <button onclick="addToTable('SVP')">SVP</button>
+            <button onclick="addToTable('MVP')">MVP</button>
+        </div>
+    </div>
