@@ -25,8 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return cookieValue;
     }
 
-    const csrftoken = getCookie('csrftoken');
-
     function showModal(name) {
         currentName = name;
         document.getElementById('modal-text').innerText = `Add ${name} to:`;
@@ -38,13 +36,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addToTable(type) {
-        fetch(`/update/${currentName}/${type}/`, {
+
+        const apiUrl = 'https://khi3ly2sr8.execute-api.us-east-1.amazonaws.com/SR';
+
+        fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
             },
-            body: JSON.stringify({}),
+            body: JSON.stringify({
+                name: currentName,
+                type: type,
+            }),
         })
             .then(response => {
                 if (!response.ok) {
