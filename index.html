@@ -104,28 +104,23 @@
                     return response.json();
                 })
                 .then(data => {
-                    try {
-                        const parsedData = JSON.parse(data);
-                        if (!Array.isArray(parsedData)) {
-                            throw new Error('Expected an array of items');
-                        }
-                        const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
-                        dataTableBody.innerHTML = '';
-                        parsedData.forEach(item => {
-                            const row = dataTableBody.insertRow();
-                            const nameCell = row.insertCell(0);
-                            const svpCell = row.insertCell(1);
-                            const mvpCell = row.insertCell(2);
-                            nameCell.textContent = item.name;
-                            svpCell.textContent = item.svp;
-                            mvpCell.textContent = item.mvp;
-                        });
+                    console.log('Data fetched from API:', data); // Log the response data
+                    if (!Array.isArray(data)) {
+                        throw new Error('Expected an array of items');
+                    }
+                    const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+                    dataTableBody.innerHTML = '';
+                    data.forEach(item => {
+                        const row = dataTableBody.insertRow();
+                        const nameCell = row.insertCell(0);
+                        const svpCell = row.insertCell(1);
+                        const mvpCell = row.insertCell(2);
+                        nameCell.textContent = item.name;
+                        svpCell.textContent = item.svp;
+                        mvpCell.textContent = item.mvp;
+                    });
                     document.getElementById('loader').style.display = 'none';
                     document.getElementById('data-display').style.display = 'block';
-                } catch (error) {
-                        console.error('Error parsing data:', error);
-                        document.getElementById('loader').style.display = 'none';
-                    }
                 })
                 .catch(error => {
                     console.error('Error:', error);
