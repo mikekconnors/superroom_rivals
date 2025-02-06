@@ -97,35 +97,35 @@
                     'Content-Type': 'application/json',
                 },
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Data fetched from API:', data.body); // Log the response data
-                    if (!Array.isArray(data.body)) {
-                        throw new Error('Expected an array of items');
-                    }
-                    const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
-                    dataTableBody.innerHTML = '';
-                    data.body.forEach(item => {
-                        const row = dataTableBody.insertRow();
-                        const nameCell = row.insertCell(0);
-                        const svpCell = row.insertCell(1);
-                        const mvpCell = row.insertCell(2);
-                        nameCell.textContent = item.name;
-                        svpCell.textContent = item.svp;
-                        mvpCell.textContent = item.mvp;
-                    });
-                    document.getElementById('loader').style.display = 'none';
-                    document.getElementById('data-display').style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('loader').style.display = 'none';
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data fetched from API:', data.body); // Log the response data
+                if (!Array.isArray(data.body)) {
+                    throw new Error('Expected an array of items');
+                }
+                const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+                dataTableBody.innerHTML = '';
+                data.body.forEach(item => {
+                    const row = dataTableBody.insertRow();
+                    const nameCell = row.insertCell(0);
+                    const svpCell = row.insertCell(1);
+                    const mvpCell = row.insertCell(2);
+                    nameCell.textContent = item.name;
+                    svpCell.textContent = item.svp;
+                    mvpCell.textContent = item.mvp;
                 });
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('data-display').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loader').style.display = 'none';
+            });
         }
 
         document.addEventListener('DOMContentLoaded', fetchData);
