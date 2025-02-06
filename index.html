@@ -103,8 +103,12 @@
                 }
                 return response.json();
             })
-            .then((data) => {
+            .then(data => {
                 console.log('Data fetched from API:', data.body); // Log the response data
+                if (!Array.isArray(data.body)) {
+                        throw new Error('Expected an array of items in data.body');
+                }
+                console.log('Data fetched from API:', data.body[0].name); // Log the response data
                 const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
                 dataTableBody.innerHTML = '';
                 data.body.forEach(item => {
