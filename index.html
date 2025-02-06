@@ -31,7 +31,18 @@
         </div>
         <div id="loader" class="loader"></div>
         <div id="data-display">
-            <!-- Data from DynamoDB will be displayed here -->
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>SVP</th>
+                        <th>MVP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data from DynamoDB will be displayed here -->
+                </tbody>
+        </table>
         </div>
     </div>
     <script>
@@ -75,12 +86,17 @@
         }
 
         function fetchData() {
-            const apiUrl = 'https://your-api-gateway-endpoint.amazonaws.com/prod/fetch'; // Replace with your API Gateway endpoint for fetching data
+            const apiUrl = 'https://khi3ly2sr8.execute-api.us-east-1.amazonaws.com/SR'; // Replace with your API Gateway endpoint for fetching data
 
             document.getElementById('loader').style.display = 'block';
             document.getElementById('data-display').style.display = 'none';
 
-            fetch(apiUrl)
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -88,12 +104,16 @@
                     return response.json();
                 })
                 .then(data => {
-                    const dataDisplay = document.getElementById('data-display');
-                    dataDisplay.innerHTML = '';
+                    const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+                    dataTableBody.innerHTML = '';
                     data.forEach(item => {
-                        const div = document.createElement('div');
-                        div.textContent = `Name: ${item.name}, SVP: ${item.svp}, MVP: ${item.mvp}`;
-                        dataDisplay.appendChild(div);
+                        const row = dataTableBody.insertRow();
+                        const nameCell = row.insertCell(0);
+                        const svpCell = row.insertCell(1);
+                        const mvpCell = row.insertCell(2);
+                        nameCell.textContent = item.name;
+                        svpCell.textContent = item.svp;
+                        mvpCell.textContent = item.mvp;
                     });
                     document.getElementById('loader').style.display = 'none';
                     document.getElementById('data-display').style.display = 'block';
