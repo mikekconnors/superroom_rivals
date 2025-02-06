@@ -101,11 +101,11 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+                console.log('Data fetched from API:', response.json()); // Log the response data
                 return response.json();
             })
             .then((data) => {
                 console.log('Data fetched from API:', data.body); // Log the response data
-                console.log('Data fetched from API:', response.json()); // Log the response data
                 const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
                 dataTableBody.innerHTML = '';
                 data.body.forEach(item => {
