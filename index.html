@@ -105,13 +105,14 @@
             })
             .then(data => {
                 console.log('Data fetched from API:', data.body); // Log the response data
-                if (!Array.isArray(data.body)) {
-                        throw new Error('Expected an array of items in data.body');
+                const parsedBody = JSON.parse(data.body); // Parse the body as JSON
+                if (!Array.isArray(parsedBody)) {
+                    throw new Error('Expected an array of items in data.body');
                 }
-                console.log('Data fetched from API:', data.body[0].name); // Log the response data
+                console.log('Data fetched from API:', data); // Log the response data
                 const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
                 dataTableBody.innerHTML = '';
-                data.body.forEach(item => {
+                parsedBody.forEach(item => {
                     const row = dataTableBody.insertRow();
                     const nameCell = row.insertCell(0);
                     const svpCell = row.insertCell(1);
