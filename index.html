@@ -101,7 +101,6 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                console.log('Data fetched from API:', response.json()); // Log the response data
                 return response.json();
             })
             .then((data) => {
