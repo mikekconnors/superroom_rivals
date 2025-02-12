@@ -72,7 +72,7 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(requestObject),
+                body: "{\"name\": \"Mike\", \"type\": \"svp\"}"
             })
             .then(response => {
                 console.log('Response from API:', response); // Log the response object
