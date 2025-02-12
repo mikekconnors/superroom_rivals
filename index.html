@@ -64,14 +64,11 @@
         function addToTable(type) {
             const requestObject = {
                 name: 'Mike',
-                type: 'svp',
+                type: type,
             };
             const apiUrl = 'https://80ycu3fy5k.execute-api.us-east-2.amazonaws.com/SR/';
             fetch(apiUrl, {
                 method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 body: "{\"name\": \"Mike\", \"type\": \"svp\"}"
             })
             .then(response => {
