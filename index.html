@@ -75,8 +75,9 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(requestObject),
+                    
                 });
-
+                console.log('Body:', JSON.stringify(requestObject)); // Log the request body
                 console.log('Response from API:', response); // Log the response object
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
