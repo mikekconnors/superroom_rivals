@@ -63,8 +63,6 @@
 
         function addToTable(type) {
             const apiUrl = 'https://80ycu3fy5k.execute-api.us-east-2.amazonaws.com/SR/'; // Replace with your API Gateway endpoint
-
-
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -75,18 +73,19 @@
                     type: type,
                 }),
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Data Sent to API:', data.body); 
-                    alert(data.message);
-                    fetchData();
-                })
-                .catch(error => console.error('Error:', error));
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log(response.json()); 
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data Sent to API:', data.body); 
+                alert(data.message);
+                fetchData();
+            })
+            .catch(error => console.error('Error:', error));
             closeModal();
         }
 
