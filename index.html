@@ -64,6 +64,7 @@
         function addToTable(type) {
             const apiUrl = 'https://80ycu3fy5k.execute-api.us-east-2.amazonaws.com/SR/'; // Replace with your API Gateway endpoint
 
+
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -81,6 +82,7 @@
                     return response.json();
                 })
                 .then(data => {
+                    console.log('Data Sent to API:', data.body); 
                     alert(data.message);
                     fetchData();
                 })
