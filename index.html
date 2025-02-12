@@ -83,7 +83,7 @@
                     throw new Error('Network response was not ok');
                 }
 
-                const data = await response.json();
+                const data = await response;
                 console.log('Data added to API:', data);
                 alert(data.message);
                 closeModal();
