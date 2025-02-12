@@ -68,17 +68,16 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: {
-                    "name": currentName,
-                    "type": type,
-                },
+                body: JSON.stringify({
+                    name: currentName,
+                    type: type,
+                }),
             })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
-                console.log("response", response);
             })
             .then(data => {
                 console.log("data", data); 
