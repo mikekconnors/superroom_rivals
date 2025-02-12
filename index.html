@@ -42,7 +42,10 @@
                 <tbody>
                     <!-- Data from DynamoDB will be displayed here -->
                 </tbody>
-        </table>
+            </table>
+        </div>
+        <div id="json-display">
+            <!-- Tracker Network API JSON data will be displayed here -->
         </div>
     </div>
     <script>
@@ -59,7 +62,7 @@
         }
 
         function addToTable(type) {
-            const apiUrl = 'https://khi3ly2sr8.execute-api.us-east-2.amazonaws.com/SR'; // Replace with your API Gateway endpoint
+            const apiUrl = 'https://80ycu3fy5k.execute-api.us-east-2.amazonaws.com/SR/'; // Replace with your API Gateway endpoint
 
             fetch(apiUrl, {
                 method: 'POST',
@@ -118,8 +121,8 @@
                     const svpCell = row.insertCell(1);
                     const mvpCell = row.insertCell(2);
                     nameCell.textContent = item.name;
-                    svpCell.textContent = item.SVP;
-                    mvpCell.textContent = item.MVP;
+                    svpCell.textContent = item.svp;
+                    mvpCell.textContent = item.mvp;
                 });
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('data-display').style.display = 'block';
@@ -130,7 +133,57 @@
             });
         }
 
+        function fetchTrackerData() {
+            const apiUrl = 'https://public-api.tracker.gg/v2/game/standard/profile/platform/username'; // Replace with the correct endpoint
+            const apiKey = 'b84fa4d4-d7e3-44ed-8160-39f47f4b4d5c';
+
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('data-display').style.display = 'none';
+            document.getElementById('json-display').style.display = 'none';
+
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'TRN-Api-Key': apiKey
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data fetched from API:', data); // Log the response data
+                const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+                dataTableBody.innerHTML = '';
+                data.data.forEach(item => {
+                    const row = dataTableBody.insertRow();
+                    const playerCell = row.insertCell(0);
+                    const scoreCell = row.insertCell(1);
+                    const rankCell = row.insertCell(2);
+                    playerCell.textContent = item.metadata.platformUserHandle;
+                    scoreCell.textContent = item.stats[0].value;
+                    rankCell.textContent = item.stats[1].value;
+                });
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('data-display').style.display = 'block';
+
+                // Display the JSON data below the table
+                const jsonDisplay = document.getElementById('json-display');
+                jsonDisplay.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                jsonDisplay.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loader').style.display = 'none';
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', fetchData);
+        document.addEventListener('DOMContentLoaded', fetchTrackerData);
+
     </script>
 </body>
 </html>
