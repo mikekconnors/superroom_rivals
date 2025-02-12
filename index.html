@@ -63,8 +63,8 @@
 
         function addToTable(type) {
             const requestObject = {
-                name: currentName,
-                type: type,
+                name: 'Mike',
+                type: 'svp',
             };
             const apiUrl = 'https://80ycu3fy5k.execute-api.us-east-2.amazonaws.com/SR/'; // Replace with your API Gateway endpoint
             fetch(apiUrl, {
@@ -83,6 +83,7 @@
             })
             .then(data => {
                 console.log('Data added to API:', data);
+                alert(data.message);
                 closeModal();
                 fetchData();
             })
