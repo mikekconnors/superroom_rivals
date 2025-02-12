@@ -62,16 +62,17 @@
         }
 
         function addToTable(type) {
+            const requestObject = {
+                name: currentName,
+                type: type,
+            };
             const apiUrl = 'https://80ycu3fy5k.execute-api.us-east-2.amazonaws.com/SR/'; // Replace with your API Gateway endpoint
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    name: currentName,
-                    type: type,
-                }),
+                body: JSON.stringify(requestObject),
             })
             .then(response => {
                 if (!response.ok) {
