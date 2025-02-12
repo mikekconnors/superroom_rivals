@@ -75,13 +75,14 @@
                 body: JSON.stringify(requestObject),
             })
             .then(response => {
+                console.log('Response from API:', response); // Log the response object
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log('Data added to API:', requestObject);
+                console.log('Data added to API:', data);
                 closeModal();
                 fetchData();
             })
