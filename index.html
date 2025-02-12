@@ -63,8 +63,11 @@
 
         async function addToTable(type) {
             const requestObject = {
-                name: currentName,
-                type: type,
+                httpMethod: 'POST',
+                body: JSON.stringify({
+                    name: currentName,
+                    type: type,
+                }),
             };
             const apiUrl = 'https://80ycu3fy5k.execute-api.us-east-2.amazonaws.com/SR/'; // Replace with your API Gateway endpoint
 
@@ -82,10 +85,6 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-
-                const data = await response;
-                console.log('Data added to API:', data);
-                alert(data.message);
                 closeModal();
                 fetchData();
             } catch (error) {
