@@ -80,6 +80,11 @@
                 }
                 return response.json();
             })
+            .then(data => {
+                console.log('Data added to API:', requestObject);
+                closeModal();
+                fetchData();
+            })
             .catch(error => console.error('Error:', error));
         }
 
