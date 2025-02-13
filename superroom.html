@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Rivals App">
+    <meta name="author" content="Your Name">
+    <meta name="theme-color" content="#000000">
+    <title>Rivals App</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="App">
+        <header class="App-header">
+            <h1>Rivals App</h1>
+        </header>
+        <div class="dice">
+            <button onclick="handleButtonClick()">
+                <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/dice.jpg" alt="Dice" />
+                Superroom Rivals
+            </button>
+        </div>
+        <div class="buttons">
+            <button onclick="showModal('Mike')">Mike</button>
+            <button onclick="showModal('Alex')">Alex</button>
+            <button onclick="showModal('Mario')">Mario</button>
+            <button onclick="showModal('Pat')">Pat</button>
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p id="modal-text">Add to:</p>
+                <button onclick="addToTable('svp')">svp</button>
+                <button onclick="addToTable('mvp')">mvp</button>
+            </div>
+        </div>
+        <div id="loader" class="loader"></div>
+        <div id="data-display">
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>SVP</th>
+                        <th>MVP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data from DynamoDB will be displayed here -->
+                </tbody>
+            </table>
+        </div>
+        <div id="json-display">
+            <!-- Tracker Network API JSON data will be displayed here -->
+        </div>
+    </div>
+    <script>
+        let currentName = '';
+
+        function showModal(name) {
+            currentName = name;
+            document.getElementById('modal-text').innerText = `Add ${name} to:`;
+            document.getElementById('myModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        async function addToTable(type) {
+            const requestObject = {
+                httpMethod: 'POST',
+                body: JSON.stringify({
+                    name: currentName,
+                    type: type,
+                }),
+            };
+            const apiUrl = 'https://80ycu3fy5k.execute-api.us-east-2.amazonaws.com/SR/'; // Replace with your API Gateway endpoint
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestObject),
+                    
+                });
+                console.log('Body:', JSON.stringify(requestObject)); // Log the request body
+                console.log('Response from API:', response); // Log the response object
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                closeModal();
+                fetchData();
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function fetchData() {
+            const apiUrl = 'https://80ycu3fy5k.execute-api.us-east-2.amazonaws.com/SR/'; // Replace with your API Gateway endpoint for fetching data
+
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('data-display').style.display = 'none';
+
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data fetched from API:', data.body); // Log the response data
+                const parsedBody = JSON.parse(data.body); // Parse the body as JSON
+                if (!Array.isArray(parsedBody)) {
+                    throw new Error('Expected an array of items in data.body');
+                }
+                console.log('Data fetched from API:', data); // Log the response data
+                const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+                dataTableBody.innerHTML = '';
+                parsedBody.forEach(item => {
+                    const row = dataTableBody.insertRow();
+                    const nameCell = row.insertCell(0);
+                    const svpCell = row.insertCell(1);
+                    const mvpCell = row.insertCell(2);
+                    nameCell.textContent = item.name;
+                    svpCell.textContent = item.svp;
+                    mvpCell.textContent = item.mvp;
+                });
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('data-display').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loader').style.display = 'none';
+            });
+        }
+
+        function fetchTrackerData() {
+            const apiUrl = 'https://public-api.tracker.gg/v2/game/standard/profile/platform/username'; // Replace with the correct endpoint
+            const apiKey = 'b84fa4d4-d7e3-44ed-8160-39f47f4b4d5c';
+
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('data-display').style.display = 'none';
+            document.getElementById('json-display').style.display = 'none';
+
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'TRN-Api-Key': apiKey
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data fetched from API:', data); // Log the response data
+                const dataTableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+                dataTableBody.innerHTML = '';
+                data.data.forEach(item => {
+                    const row = dataTableBody.insertRow();
+                    const playerCell = row.insertCell(0);
+                    const scoreCell = row.insertCell(1);
+                    const rankCell = row.insertCell(2);
+                    playerCell.textContent = item.metadata.platformUserHandle;
+                    scoreCell.textContent = item.stats[0].value;
+                    rankCell.textContent = item.stats[1].value;
+                });
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('data-display').style.display = 'block';
+
+                // Display the JSON data below the table
+                const jsonDisplay = document.getElementById('json-display');
+                jsonDisplay.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                jsonDisplay.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loader').style.display = 'none';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchData);
+
+    </script>
+</body>
+</html>
