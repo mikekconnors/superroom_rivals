@@ -16,22 +16,23 @@
             <h1>Welcome to SuperRoom</h1>
         </header>
         <div class="button-container">
-            <button onclick="redirectToPage('superroom.html')">
-                <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/dice.jpg" alt="Dice">
-                Superroom Rivals
-            </button>
+            <div class="button-column">
+                <button onclick="redirectToPage('superroom.html')">
+                    <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/dice.jpg" alt="Dice">
+                    Superroom Rivals
+                </button>
+                <button onclick="redirectToPage('soundboard.html')">
+                    <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/Tim_Taylor.jpeg" alt="Toolman">
+                    Superroom Soundboard
+                </button>
+            </div>
+            <div class="button-column">
+                <button onclick="redirectToPage('goodbad.html')">
+                    <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/mark.PNG" alt="HiMark">
+                    Superroom Film Review
+                </button>
+            </div>
         </div>
-        <div class="button-container">
-            <button onclick="redirectToPage('soundboard.html')">
-                <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/Tim_Taylor.jpeg" alt="Toolman">
-                Superroom Soundboard
-            </button>
-        </div>
-        <div class="button-container">
-            <button onclick="redirectToPage('goodbad.html')">
-                <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/mark.PNG" alt="HiMark">
-                Superroom Film Review
-            </button>
     </div>
     <script>
         function redirectToPage(page) {
