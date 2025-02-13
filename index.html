@@ -21,10 +21,14 @@
         }
         .landing-page {
             text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Add space between the button containers */
         }
         .landing-header h1 {
             font-size: 2.5em;
             margin-bottom: 20px;
+            width: 100%; /* Ensure the header takes full width */
         }
         .button-container {
             display: flex;
@@ -60,15 +64,16 @@
         </header>
         <div class="button-container">
             <button onclick="redirectToPage('superroom.html')">
-                <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/dice.jpg" alt="Dice" style="width:100px;height:100px;">
+                <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/dice.jpg" alt="Dice">
                 Superroom Rivals
             </button>
         </div>
         <div class="button-container">
             <button onclick="redirectToPage('soundboard.html')">
-                <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/Tim_Taylor.jpeg" alt="Toolman" style="width:100px;height:100px;">
+                <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/Tim_Taylor.jpeg" alt="Toolman">
                 Superroom Soundboard
             </button>
+        </div>
     </div>
     <script>
         function redirectToPage(page) {
