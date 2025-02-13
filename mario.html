@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Where is Mario">
+    <meta name="author" content="Your Name">
+    <meta name="theme-color" content="#000000">
+    <title>Where is Mario</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .mario-page {
+            text-align: center;
+        }
+        .mario-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .button-container button {
+            background-color: #007bff;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+        .sentence-container {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="mario-page">
+        <header class="mario-header">
+            <h1>Where is Mario?</h1>
+        </header>
+        <div class="button-container">
+            <button onclick="playAudio()">Where is Mario?</button>
+            <button onclick="generateSentence()">?</button>
+        </div>
+        <div class="sentence-container" id="sentence-container"></div>
+    </div>
+    <script>
+        function playAudio() {
+            const audio = new Audio('https://sr-static-site.s3.us-east-2.amazonaws.com/dice.m4a'); // Replace with your audio file URL
+            audio.play();
+        }
+
+        function generateSentence() {
+            const objects = ['slop', 'phlegm', 'carrion', 'gristle', 'gangrene'];
+            const actions = ['defiled', 'sullied', 'moldered', 'tainted', 'soddened'];
+            const actors = ['Rasputin', 'Caligula', 'Howard Hughes', 'Louis XIV', 'Nick Nolte'];
+            const randomObject = objects[Math.floor(Math.random() * objects.length)];
+            const randomAction = actions[Math.floor(Math.random() * actions.length)];
+            const randomActor = actors[Math.floor(Math.random() * actors.length)];
+            const sentence = `Mario ${randomAction} a ${randomObject} with a ${randomAction} ${randomActor}.`;
+            document.getElementById('sentence-container').innerText = sentence;
+        }
+    </script>
+</body>
+</html>
