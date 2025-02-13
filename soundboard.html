@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Soundboard">
+    <meta name="author" content="Your Name">
+    <meta name="theme-color" content="#000000">
+    <title>Soundboard</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .soundboard {
+            text-align: center;
+        }
+        .soundboard-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .button-container button {
+            background-color: #007bff;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="soundboard">
+        <header class="soundboard-header">
+            <h1>Soundboard</h1>
+        </header>
+        <div class="button-container">
+            <button onclick="playSound('https://your-bucket-name.s3.amazonaws.com/sound1.mp3')">Sound 1</button>
+            <button onclick="playSound('https://your-bucket-name.s3.amazonaws.com/sound2.mp3')">Sound 2</button>
+            <button onclick="playSound('https://your-bucket-name.s3.amazonaws.com/sound3.mp3')">Sound 3</button>
+            <!-- Add more buttons as needed -->
+        </div>
+    </div>
+    <script>
+        function playSound(url) {
+            const audio = new Audio(url);
+            audio.play();
+        }
+    </script>
+</body>
+</html>

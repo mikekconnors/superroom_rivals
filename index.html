@@ -56,18 +56,23 @@
 <body>
     <div class="landing-page">
         <header class="landing-header">
-            <h1>Welcome to Superroom</h1>
+            <h1>Welcome to SuperRoom</h1>
         </header>
         <div class="button-container">
-            <button onclick="redirectToApp()">
+            <button onclick="redirectToPage('superroom.html')">
                 <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/dice.jpg" alt="Dice" style="width:100px;height:100px;">
                 Superroom Rivals
             </button>
         </div>
+        <div class="button-container">
+            <button onclick="redirectToPage('soundboard.html')">
+                <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/Tim_Taylor.jpeg" alt="Toolman" style="width:100px;height:100px;">
+                Superroom Soundboard
+            </button>
     </div>
     <script>
-        function redirectToApp() {
-            window.location.href = 'superroom.html'; // Replace with the actual path to your app page
+        function redirectToPage(page) {
+            window.location.href = page;
         }
     </script>
 </body>
