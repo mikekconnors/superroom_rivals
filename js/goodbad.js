@@ -316,7 +316,7 @@ const movieTitles = [
 ];
 
 
-const itemsPerPage = 10;
+const itemsPerPage = 42;
 let currentPage = 1;
 
 function generateTableRows() {
