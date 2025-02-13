@@ -27,9 +27,15 @@
                 Superroom Soundboard
             </button>
         </div>
+        <div class="button-container">
+            <button onclick="redirectToPage('goodbad.html')">
+                <img src="https://sr-static-site.s3.us-east-2.amazonaws.com/mark.PNG" alt="HiMark">
+                Superroom Film Review
+            </button>
     </div>
     <script>
         function redirectToPage(page) {
+            playSound('https://sr-static-site.s3.us-east-2.amazonaws.com/toolman+grunt');
             window.location.href = page;
         }
     </script>
