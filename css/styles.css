@@ -71,51 +71,53 @@ body {
     display: none;
 }
 
- body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .landing-page {
-            width: 90%;
-            max-width: 1200px;
-            margin: 20px auto;
-            text-align: center;
-        }
-        .landing-header h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        .button-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        .button-container button {
-            background-color: #007bff;
-            border: none;
-            border-radius: 10px;
-            padding: 20px;
-            color: white;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .button-container button img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .button-container button:hover {
-            background-color: #0056b3;
-        }
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+.landing-page {
+    text-align: center;
+}
+.landing-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Add space between the columns */
+}
+.button-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Add space between the buttons */
+}
+.button-container button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+.button-container button:hover {
+    background-color: #0056b3;
+}
+.button-container img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
