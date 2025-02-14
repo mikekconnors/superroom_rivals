@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pooperroom">
+    <meta name="author" content="Your Name">
+    <meta name="theme-color" content="#000000">
+    <title>Pooperroom</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .pooperroom-page {
+            text-align: center;
+        }
+        .pooperroom-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .button-container button {
+            background-color: #007bff;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+        .log-container {
+            margin-top: 20px;
+            text-align: left;
+            width: 80%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .log-entry {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="pooperroom-page">
+        <header class="pooperroom-header">
+            <h1>Pooperroom</h1>
+        </header>
+        <div class="button-container">
+            <button onclick="logDump()">Log Dump</button>
+        </div>
+        <div class="log-container" id="log-container"></div>
+    </div>
+    <script>
+        function logDump() {
+            const logContainer = document.getElementById('log-container');
+            const now = new Date();
+            const timeString = now.toLocaleString();
+            const heft = Math.floor(Math.random() * 10) + 1; // Random heft between 1 and 10
+
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.innerHTML = `<strong>Time:</strong> ${timeString} <br> <strong>Heft:</strong> ${heft}`;
+
+            logContainer.insertBefore(logEntry, logContainer.firstChild);
+
+            // Keep only the 10 most recent logs
+            while (logContainer.children.length > 10) {
+                logContainer.removeChild(logContainer.lastChild);
+            }
+        }
+    </script>
+</body>
+</html>
