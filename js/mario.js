@@ -1,19 +1,21 @@
 async function getSecret() {
-    const { SecretsManagerClient, GetSecretValueCommand } = require("@aws-sdk/client-secrets-manager");
     const secret_name = "openAi";
-    const client = new SecretsManagerClient({
+    AWS.config.update({
         region: "us-east-1",
+        credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: "YOUR_IDENTITY_POOL_ID" // Replace with your Cognito Identity Pool ID
+        })
     });
+
+    const client = new AWS.SecretsManager();
 
     let response;
 
     try {
-        response = await client.send(
-            new GetSecretValueCommand({
-                SecretId: secret_name,
-                VersionStage: "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified
-            })
-        );
+        response = await client.getSecretValue({
+            SecretId: secret_name,
+            VersionStage: "AWSCURRENT" // VersionStage defaults to AWSCURRENT if unspecified
+        }).promise();
     } catch (error) {
         // For a list of exceptions thrown, see
         // https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html

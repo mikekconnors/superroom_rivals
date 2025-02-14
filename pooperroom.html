@@ -90,6 +90,31 @@
         </div>
     </div>
     <script>
+        async function sendSMS(time, heft) {
+            const url = 'https://www.superroom.org/pooperroom.html'; // Replace with your actual server URL
+            const data = {
+                to: '3392239644', // Replace with your phone number
+                message: `New dump logged at ${time} with heft ${heft}`
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                console.error('Error sending SMS:', error);
+                alert('Error sending SMS.');
+            }
+        }
+
         function logDump() {
             const logContainer = document.getElementById('log-container');
             const heftInput = document.getElementById('heft-input');
@@ -116,6 +141,9 @@
 
             // Clear the input field
             heftInput.value = '';
+
+            // Send SMS
+            sendSMS(timeString, heft);
         }
     </script>
 </body>
