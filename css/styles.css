@@ -110,7 +110,7 @@ body {
 }
 .button-container button img {
     max-width: 100%;
-    height: auto;
+    height: 100px;
     margin-bottom: 10px;
 }
 .button-container button:hover {
