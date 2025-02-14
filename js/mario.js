@@ -29,8 +29,7 @@ function playAudio() {
 }
 
 async function generateSentence() {
-    const secret = await getSecret();
-    const apiKey = JSON.parse(secret).OPENAI_API_KEY; // Assuming the secret is stored as a JSON object with the key OPENAI_API_KEY
+    const apiKey = await getSecret();
     const prompt = 'Generate a nonsensical random sentence involving Mario and random gross objects with some disgusting action with some person who is known to be disgusting at some disgusting location:';
     
     try {
