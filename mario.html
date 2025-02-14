@@ -61,22 +61,6 @@
         </div>
         <div class="sentence-container" id="sentence-container"></div>
     </div>
-    <script>
-        function playAudio() {
-            const audio = new Audio('https://sr-static-site.s3.us-east-2.amazonaws.com/dice.m4a'); // Replace with your audio file URL
-            audio.play();
-        }
-
-        function generateSentence() {
-            const objects = ['slop', 'phlegm', 'carrion', 'gristle', 'gangrene'];
-            const actions = ['defiled', 'sullied', 'moldered', 'tainted', 'soddened'];
-            const actors = ['Rasputin', 'Caligula', 'Howard Hughes', 'Louis XIV', 'Nick Nolte'];
-            const randomObject = objects[Math.floor(Math.random() * objects.length)];
-            const randomAction = actions[Math.floor(Math.random() * actions.length)];
-            const randomActor = actors[Math.floor(Math.random() * actors.length)];
-            const sentence = `Mario ${randomAction} a ${randomObject} with a ${randomAction} ${randomActor}.`;
-            document.getElementById('sentence-container').innerText = sentence;
-        }
-    </script>
+    <script src="js/mario.js"></script>
 </body>
 </html>
