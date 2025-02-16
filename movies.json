@@ -1,49 +1,5 @@
 [
   {
-    "title": "The Shawshank Redemption",
-    "year": 1994,
-    "superRoomInfo": {
-      "directors": [
-        "Frank Darabont"
-      ],
-      "actors": [
-        "Tim Robbins",
-        "Morgan Freeman"
-      ],
-      "release_date": "1994-09-23T00:00:00Z",
-      "rottenTomatoesRating": 9.3,
-      "genres": [
-        "Drama"
-      ],
-      "image_url": "https://example.com/shawshank.jpg",
-      "quote": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-      "specialCategories": ""
-    }
-  },
-  {
-    "title": "The Godfather",
-    "year": 1972,
-    "info": {
-      "directors": [
-        "Francis Ford Coppola"
-      ],
-      "release_date": "1972-03-24T00:00:00Z",
-      "rating": 9.2,
-      "genres": [
-        "Crime",
-        "Drama"
-      ],
-      "image_url": "https://example.com/godfather.jpg",
-      "plot": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-      "rank": 2,
-      "running_time_secs": 10500,
-      "actors": [
-        "Marlon Brando",
-        "Al Pacino"
-      ]
-    }
-  },
-  {
     "title": "Commando",
     "year": null,
     "info": {
