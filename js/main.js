@@ -1,62 +1,66 @@
-// main.js
-document.addEventListener('DOMContentLoaded', function() {
-    const title = "Static Page App";
-    document.title = title + " | GitHub Codespaces ♥️ Django";
+let movieTitles = [];
+const itemsPerPage = 10;
+let currentPage = 1;
 
-    window.showModal = function(name) {
-        alert("Showing modal for " + name);
-    };
-
-    let currentName = '';
-
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
+async function loadMovies() {
+    try {
+        const response = await fetch('movies.json');
+        const movieData = await response.json();
+        movieTitles = movieData.map(movie => ({
+            title: movie.title,
+            painScore: movie.painScore || '',
+            specialtyCategories: movie.specialtyCategories || '',
+            quote: movie.quote || ''
+        }));
+        generateTableRows();
+    } catch (error) {
+        console.error('Error loading movies:', error);
     }
+}
 
-    const csrftoken = getCookie('csrftoken');
+function generateTableRows() {
+    const tableBody = document.getElementById('movie-table-body');
+    tableBody.innerHTML = ''; // Clear existing rows
 
-    function showModal(name) {
-        currentName = name;
-        document.getElementById('modal-text').innerText = `Add ${name} to:`;
-        document.getElementById('myModal').style.display = 'block';
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedItems = movieTitles.slice(start, end);
+
+    paginatedItems.forEach(movie => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${movie.title}</td>
+            <td><input type="text" value="${movie.painScore}" placeholder="Pain Score"></td>
+            <td><input type="text" value="${movie.specialtyCategories}" placeholder="Specialty Categories"></td>
+            <td><input type="text" value="${movie.quote}" placeholder="Quote"></td>
+        `;
+        tableBody.appendChild(row);
+    });
+
+    updatePaginationControls();
+}
+
+function updatePaginationControls() {
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === Math.ceil(movieTitles.length / itemsPerPage);
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        generateTableRows();
     }
+}
 
-    function closeModal() {
-        document.getElementById('myModal').style.display = 'none';
+function nextPage() {
+    if (currentPage < Math.ceil(movieTitles.length / itemsPerPage)) {
+        currentPage++;
+        generateTableRows();
     }
+}
 
-    function addToTable(type) {
-        fetch(`/update/${currentName}/${type}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
-            },
-            body: JSON.stringify({}),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById(`svp-${currentName.toLowerCase()}`).innerText = data.svp_count;
-                document.getElementById(`mvp-${currentName.toLowerCase()}`).innerText = data.mvp_count;
-            })
-            .catch(error => console.error('Error:', error));
-        closeModal();
-    }
-});
+// Load movies and generate the table rows when the page loads
+window.onload = loadMovies;
