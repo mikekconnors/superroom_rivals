@@ -5,7 +5,13 @@ const path = require('path');
 const filePath = path.join(__dirname, 'movies.json');
 
 // Read movie data from JSON file
-const movieData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+let movieData;
+try {
+    movieData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+} catch (error) {
+    console.error('Error reading or parsing movies.json:', error);
+    movieData = [];
+}
 
 // Extract movie titles from the JSON data
 const movieTitles = movieData.map(movie => ({
