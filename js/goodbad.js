@@ -1,28 +1,22 @@
-const fs = require('fs');
-const path = require('path');
-
-// Define the path to the movies.json file
-const filePath = path.join(__dirname, 'movies.json');
-
-// Read movie data from JSON file
-let movieData;
-try {
-    movieData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-} catch (error) {
-    console.error('Error reading or parsing movies.json:', error);
-    movieData = [];
-}
-
-// Extract movie titles from the JSON data
-const movieTitles = movieData.map(movie => ({
-    title: movie.title,
-    painScore: movie.painScore || '',
-    specialtyCategories: movie.specialtyCategories || '',
-    quote: movie.quote || ''
-}));
-
+let movieTitles = [];
 const itemsPerPage = 10;
 let currentPage = 1;
+
+async function loadMovies() {
+    try {
+        const response = await fetch('movies.json');
+        const movieData = await response.json();
+        movieTitles = movieData.map(movie => ({
+            title: movie.title,
+            painScore: movie.painScore || '',
+            specialtyCategories: movie.specialtyCategories || '',
+            quote: movie.quote || ''
+        }));
+        generateTableRows();
+    } catch (error) {
+        console.error('Error loading movies:', error);
+    }
+}
 
 function generateTableRows() {
     const tableBody = document.getElementById('movie-table-body');
@@ -68,5 +62,5 @@ function nextPage() {
     }
 }
 
-// Generate the table rows when the page loads
-window.onload = generateTableRows;
+// Load movies and generate the table rows when the page loads
+window.onload = loadMovies;
