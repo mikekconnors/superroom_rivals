@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         closeModal();
     }
 
-    function goBack() {
+    window.goBack = function() {
         window.history.back();
-    }
+    };
 });
