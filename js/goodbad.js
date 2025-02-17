@@ -10,9 +10,11 @@ async function loadMovies() {
             title: movie.title,
             painScore: movie.painScore || '',
             specialtyCategories: movie.specialtyCategories || '',
-            quote: movie.quote || ''
+            quote: movie.quote || '',
+            watchedDate: movie.watchedDate || ''
         }));
         generateTableRows();
+        generateTimeline();
     } catch (error) {
         console.error('Error loading movies:', error);
     }
@@ -40,6 +42,26 @@ function generateTableRows() {
     updatePaginationControls();
 }
 
+function generateTimeline() {
+    const timeline = document.getElementById('timeline');
+    timeline.innerHTML = ''; // Clear existing timeline
+
+    movieTitles.sort((a, b) => new Date(a.watchedDate) - new Date(b.watchedDate));
+
+    movieTitles.forEach((movie, index) => {
+        const item = document.createElement('div');
+        item.className = `timeline-item ${index % 2 === 0 ? 'left' : 'right'}`;
+        item.innerHTML = `
+            <div class="date">${new Date(movie.watchedDate).toLocaleDateString()}</div>
+            <div class="content">
+                <h2>${movie.title}</h2>
+                <p>${movie.quote}</p>
+            </div>
+        `;
+        timeline.appendChild(item);
+    });
+}
+
 function updatePaginationControls() {
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
@@ -62,5 +84,5 @@ function nextPage() {
     }
 }
 
-// Load movies and generate the table rows when the page loads
+// Load movies and generate the table rows and timeline when the page loads
 window.onload = loadMovies;
