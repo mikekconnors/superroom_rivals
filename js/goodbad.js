@@ -43,14 +43,14 @@ function generateTableRows() {
 }
 
 function generateTimeline() {
-    const timeline = document.getElementById('timeline');
-    timeline.innerHTML = ''; // Clear existing timeline
+    const timelineContainer = document.getElementById('timeline-container');
+    timelineContainer.innerHTML = ''; // Clear existing timeline
 
     movieTitles.sort((a, b) => new Date(a.watchedDate) - new Date(b.watchedDate));
 
-    movieTitles.forEach((movie, index) => {
+    movieTitles.forEach(movie => {
         const item = document.createElement('div');
-        item.className = `timeline-item ${index % 2 === 0 ? 'left' : 'right'}`;
+        item.className = 'timeline-item';
         item.innerHTML = `
             <div class="date">${new Date(movie.watchedDate).toLocaleDateString()}</div>
             <div class="content">
@@ -58,7 +58,17 @@ function generateTimeline() {
                 <p>${movie.quote}</p>
             </div>
         `;
-        timeline.appendChild(item);
+        timelineContainer.appendChild(item);
+    });
+
+    // Add zoom functionality
+    timelineContainer.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        if (event.deltaY < 0) {
+            timelineContainer.style.transform = `scale(${Math.min(2, (parseFloat(timelineContainer.style.transform.replace('scale(', '').replace(')', '')) || 1) + 0.1)})`;
+        } else {
+            timelineContainer.style.transform = `scale(${Math.max(0.5, (parseFloat(timelineContainer.style.transform.replace('scale(', '').replace(')', '')) || 1) - 0.1)})`;
+        }
     });
 }
 
