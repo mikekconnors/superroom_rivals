@@ -1,56 +1,64 @@
 body {
     font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
 }
+
 .film-review-page {
     width: 80%;
     margin: 20px auto;
     text-align: center;
     margin-bottom: 6em;
 }
+
 .film-review-header h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
 }
+
 .film-review-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
+
 .film-review-table th, .film-review-table td {
     border: 1px solid #ddd;
     padding: 8px;
 }
+
 .film-review-table th {
     background-color: #007bff;
     color: white;
     text-align: center;
 }
+
 .film-review-table td {
     text-align: center;
 }
+
 .film-review-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
+
 .film-review-table tr:hover {
     background-color: #ddd;
 }
+
 .film-review-table th:nth-child(2), .film-review-table td:nth-child(2) {
     width: 10%; /* Adjust the width as needed */
 }
+
 .film-review-table th:nth-child(3), .film-review-table td:nth-child(3) {
     width: 10%; /* Adjust the width as needed */
 }
+
 .pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
+
 .pagination button {
     background-color: #007bff;
     border: none;
@@ -60,6 +68,7 @@ body {
     cursor: pointer;
     border-radius: 5px;
 }
+
 .pagination button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
@@ -72,6 +81,7 @@ body {
     background-color: #f4f4f4;
     border-bottom: 2px solid #007BFF;
 }
+
 .timeline-item {
     display: inline-block;
     width: 150px;
@@ -83,6 +93,7 @@ body {
     padding: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .timeline-item .date {
     font-weight: bold;
     color: #007BFF;
