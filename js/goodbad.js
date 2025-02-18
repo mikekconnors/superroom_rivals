@@ -6,13 +6,27 @@ async function loadMovies() {
     try {
         const response = await fetch('movies.json');
         const movieData = await response.json();
-        movieTitles = movieData.map(movie => ({
-            title: movie.title,
-            painScore: movie.painScore || '',
-            specialtyCategories: movie.specialtyCategories || '',
-            quote: movie.quote || '',
-            watchedDate: movie.watchedDate || ''
-        }));
+
+        // Generate a random Friday in 2016
+        let startDate = new Date(2016, 0, 1); // January 1, 2016
+        while (startDate.getDay() !== 5) { // 5 is Friday
+            startDate.setDate(startDate.getDate() + 1);
+        }
+        startDate.setDate(startDate.getDate() + Math.floor(Math.random() * 52) * 7); // Random Friday in 2016
+
+        // Assign watched dates to movies
+        movieTitles = movieData.map((movie, index) => {
+            const watchedDate = new Date(startDate);
+            watchedDate.setDate(startDate.getDate() + index * 7); // Every Friday
+            return {
+                title: movie.title,
+                painScore: movie.painScore || '',
+                specialtyCategories: movie.specialtyCategories || '',
+                quote: movie.quote || '',
+                watchedDate: watchedDate.toISOString().split('T')[0] // Format as YYYY-MM-DD
+            };
+        });
+
         generateTableRows();
         generateTimeline();
     } catch (error) {
