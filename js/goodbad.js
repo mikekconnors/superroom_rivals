@@ -1,6 +1,7 @@
 let movieTitles = [];
 const itemsPerPage = 10;
 let currentPage = 1;
+let zoomLevel = 1;
 
 async function loadMovies() {
     try {
@@ -79,10 +80,12 @@ function generateTimeline() {
     timelineContainer.addEventListener('wheel', (event) => {
         event.preventDefault();
         if (event.deltaY < 0) {
-            timelineContainer.style.transform = `scale(${Math.min(2, (parseFloat(timelineContainer.style.transform.replace('scale(', '').replace(')', '')) || 1) + 0.1)})`;
+            zoomLevel = Math.min(2, zoomLevel + 0.1);
         } else {
-            timelineContainer.style.transform = `scale(${Math.max(0.5, (parseFloat(timelineContainer.style.transform.replace('scale(', '').replace(')', '')) || 1) - 0.1)})`;
+            zoomLevel = Math.max(0.5, zoomLevel - 0.1);
         }
+        timelineContainer.style.transform = `scale(${zoomLevel})`;
+        timelineContainer.style.fontSize = `${1 / zoomLevel}em`;
     });
 }
 

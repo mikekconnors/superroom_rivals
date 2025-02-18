@@ -75,11 +75,14 @@ body {
 }
 
 .timeline-container {
-    overflow-x: scroll;
+    width: 90%;
+    margin: 0 auto;
+    overflow-x: hidden;
     white-space: nowrap;
     padding: 20px;
     background-color: #f4f4f4;
     border-bottom: 2px solid #007BFF;
+    transform-origin: left center;
 }
 
 .timeline-item {
