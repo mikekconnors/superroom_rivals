@@ -1,12 +1,5 @@
 // main.js
 document.addEventListener('DOMContentLoaded', function() {
-    const title = "Static Page App";
-    document.title = title + " | GitHub Codespaces ♥️ Django";
-
-    window.showModal = function(name) {
-        alert("Showing modal for " + name);
-    };
-
     let currentName = '';
 
     function getCookie(name) {
